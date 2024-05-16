@@ -1,0 +1,21 @@
+.stocks-container {
+  border: solid 1px black;
+  margin: 10px;
+}
+
+.stock {
+  border: solid 1px #cdcdcd;
+  flex-grow: 1;
+}
+
+.test {
+  display: flex;
+}
+
+button {
+  background-color: transparent;
+  color: #000; /* Set the color of the text */
+  border: 1px solid #cdcdcd; /* Optional: Add border for better visibility */
+  padding: 10px 20px; /* Optional: Adjust padding as needed */
+  cursor: pointer;
+}
