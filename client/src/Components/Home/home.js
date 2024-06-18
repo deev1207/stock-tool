@@ -4,6 +4,10 @@ import AddWatchList from "../AddWatchList/addwatchlist";
 import WatchList from "../WatchList/watchlist";
 import Suggest from "../Suggest/suggest";
 import axios from "axios";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 function Home() {
   const [data, setData] = useState([]);
@@ -14,7 +18,7 @@ function Home() {
   const [focus, setFocus] = useState(true);
   const vis = useRef(true);
   const [current, setCurrent] = useState(1);
-  
+
   useEffect(() => {
     const username = localStorage.getItem("username");
     axios
@@ -35,7 +39,7 @@ function Home() {
           username: username,
           watchList: data,
         })
-        .then((res) => {})
+        .then((res) => { })
         .catch((err) => {
           console.log(err);
         });
@@ -43,12 +47,17 @@ function Home() {
   }, [data]);
 
   useEffect(() => {
+    if(text===''){
+      setDisplay(false);
+      vis.current = true;
+    }
     axios
       .get(
-        `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${text}&apikey=MBB7LTVV8XDU95M0`
+        `https://financialmodelingprep.com/api/v3/search?query=${text}&limit=10&apikey=oeZLpIgP4LF3FTjHiCD4or43Lz9EEpE5`
       )
       .then((response) => {
-        setSuggest(response.data.bestMatches);
+        console.log(response);
+        setSuggest(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -82,13 +91,31 @@ function Home() {
     setFocus(false);
   };
 
-  const handleStock = (stock) => {
+  const handleStock = async (stock) => {
     const new_data = [...data];
     if (!new_data[current]) {
       new_data[current] = [];
     }
-    new_data[current].push(stock);
-    setData(new_data);
+
+
+    axios
+      .get(
+        `https://financialmodelingprep.com/api/v3/profile/${stock.symbol}?apikey=oeZLpIgP4LF3FTjHiCD4or43Lz9EEpE5`
+      )
+      .then((response) => {
+        console.log(response);
+        if (response.data.length > 0) {
+          new_data[current].push({ name: stock.name, symbol: stock.symbol, price: response.data[0]['price'] });
+          console.log(new_data);
+          setData(new_data);
+        }
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+
   };
   function addwatchlist(index) {
     vis.current = false;
@@ -113,15 +140,30 @@ function Home() {
   };
   return (
     <>
-      <button onClick={handleLogout}>Logout</button>
-      <input
-        type="text"
-        value={text}
-        onChange={handleChange}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        className="input"
-      ></input>
+    <div className="header-container">
+
+      <Box
+        component="form"
+        sx={{
+          '& > :not(style)': { m: 1, width: '25ch' },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField id="outlined-basic" label="Add Stocks" variant="outlined" onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur} />
+
+      </Box>
+
+      <Stack direction="row" spacing={2}>
+        <Button style={{ margin: 10 }} variant="outlined" color="error" onClick={handleLogout}>
+          Log Out
+        </Button>
+      </Stack>
+    </div>
+
+
 
       {display ? (
         <div className="suggestContainer" ref={childRef}>

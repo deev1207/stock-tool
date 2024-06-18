@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./addwatchlist.css";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 export default function AddWatchList({
   switchWatchList,
@@ -11,9 +13,9 @@ export default function AddWatchList({
   let init = [];
   for (let i = 1; i <= len; i++) {
     init.push(
-      <button key={i} className="child-items" onClick={() => handleButton(i)}>
+      <Button variant="outlined" onClick={() => handleButton(i)}>
         {i}
-      </button>
+      </Button>
     );
   }
   const [arr, setArr] = useState(init);
@@ -27,13 +29,12 @@ export default function AddWatchList({
     setArr((prvs) => {
       return [
         ...prvs,
-        <button
-          key={count + 1}
-          className="child-items"
+        <Button variant="outlined"
           onClick={() => handleButton(count + 1)}
         >
           {count + 1}
-        </button>,
+        </Button>,
+
       ];
     });
     addwatchlist(count + 1);
@@ -49,15 +50,15 @@ export default function AddWatchList({
   }
   return (
     <>
-      <div className="container">
+    <div className="stack-container">
+    <Stack spacing={2} direction="row">
         {arr}
-        <button className="child-items" onClick={handleClickAdd}>
-          +
-        </button>
-        <button className="child-items" onClick={handleClickMinus}>
-          -
-        </button>
-      </div>
+        <Button variant="outlined" onClick={handleClickAdd}> +</Button>
+        <Button variant="outlined" onClick={handleClickMinus}> - </Button>
+      </Stack>
+    </div>
+
+
     </>
   );
 }

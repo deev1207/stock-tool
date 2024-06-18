@@ -10,11 +10,13 @@ export default function Suggest({ stocks, handleStock }) {
       <>
         <div className="test">
           <div className="stock">{item["name"]}</div>
-          <button onClick={() => handleClick(item["name"])}>add</button>
+          <div className="stock">{item["symbol"]}</div>
+          <button onClick={() => handleClick(item)}>add</button>
         </div>
       </>
     );
   }
+  console.log(stocks_arr);
 
   return (
     <>

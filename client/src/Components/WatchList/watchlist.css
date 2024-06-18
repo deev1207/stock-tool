@@ -16,3 +16,11 @@
 .input {
   margin: 10px;
 }
+
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root{
+  width: 50%;
+}
+.table-div{
+  display: flex;
+  justify-content: center;
+}
