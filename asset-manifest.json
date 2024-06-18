@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/stock-tool/static/css/main.b521b709.css",
+    "main.js": "/stock-tool/static/js/main.f678678e.js",
+    "static/js/453.258b012d.chunk.js": "/stock-tool/static/js/453.258b012d.chunk.js",
+    "index.html": "/stock-tool/index.html",
+    "main.b521b709.css.map": "/stock-tool/static/css/main.b521b709.css.map",
+    "main.f678678e.js.map": "/stock-tool/static/js/main.f678678e.js.map",
+    "453.258b012d.chunk.js.map": "/stock-tool/static/js/453.258b012d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b521b709.css",
+    "static/js/main.f678678e.js"
+  ]
+}
